@@ -10,6 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { addScore } from '../src/api/matchApi'; // <-- adjust path if needed
 
 type AddScoreProps = {
   matchId: string;
@@ -34,17 +35,53 @@ export default function AddScoreScreen({
   const [newRuns, setNewRuns] = useState(runs);
   const [newWickets, setNewWickets] = useState(wickets);
   const [newOvers, setNewOvers] = useState(overs);
+  const [loading, setLoading] = useState(false);
 
-  const handleSave = () => {
-    // For Milestone 4: frontend-only demo
-    Alert.alert(
-      'Score updated (demo)',
-      `${team1Name} vs ${team2Name}\n\n` +
-        `Runs: ${newRuns}\nWickets: ${newWickets}\nOvers: ${newOvers}\n\n` +
-        'In the real app this will call the Spring Boot API.'
-    );
+  const handleSave = async () => {
+    const runsTrimmed = newRuns.trim();
+    const wicketsTrimmed = newWickets.trim();
+    const oversTrimmed = newOvers.trim();
 
-    router.back();
+    if (!runsTrimmed || !oversTrimmed) {
+      Alert.alert('Validation', 'Please enter at least runs and overs.');
+      return;
+    }
+
+    const runsNumber = parseInt(runsTrimmed, 10);
+    const wicketsNumber = wicketsTrimmed ? parseInt(wicketsTrimmed, 10) : 0;
+    const oversNumber = parseFloat(oversTrimmed);
+
+    if (Number.isNaN(runsNumber) || Number.isNaN(oversNumber)) {
+      Alert.alert('Validation', 'Runs and overs must be valid numbers.');
+      return;
+    }
+
+    if (runsNumber < 0 || wicketsNumber < 0 || oversNumber < 0) {
+      Alert.alert('Validation', 'Score values cannot be negative.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await addScore(matchId, {
+        runs: runsNumber,
+        overs: oversNumber,
+        wickets: wicketsNumber,
+      });
+
+      // Optional: show a small confirmation
+      // Alert.alert('Success', 'Score updated.');
+
+      // Go back to previous screen (Match Detail), which should refetch on focus
+      router.back();
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Failed to update score.';
+      Alert.alert('Error', message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,11 +129,24 @@ export default function AddScoreScreen({
         />
       </View>
 
-      <Pressable style={styles.primaryButton} onPress={handleSave}>
-        <Text style={styles.primaryButtonText}>Save Score (Demo)</Text>
+      <Pressable
+        style={[
+          styles.primaryButton,
+          loading && { opacity: 0.6 },
+        ]}
+        onPress={handleSave}
+        disabled={loading}
+      >
+        <Text style={styles.primaryButtonText}>
+          {loading ? 'Saving…' : 'Save Score'}
+        </Text>
       </Pressable>
 
-      <Pressable style={styles.secondaryButton} onPress={() => router.back()}>
+      <Pressable
+        style={styles.secondaryButton}
+        onPress={() => router.back()}
+        disabled={loading}
+      >
         <Text style={styles.secondaryButtonText}>Cancel</Text>
       </Pressable>
     </KeyboardAvoidingView>
