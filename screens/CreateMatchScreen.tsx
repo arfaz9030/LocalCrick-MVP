@@ -43,56 +43,56 @@ export default function CreateMatchScreen() {
 
   //   return isValid;
   // };
-const validateForm = () => {
-  const trimmedTeam1 = team1Name.trim();
-  const trimmedTeam2 = team2Name.trim();
+  const validateForm = () => {
+    const trimmedTeam1 = team1Name.trim();
+    const trimmedTeam2 = team2Name.trim();
 
-  const validNameRegex = /^[A-Za-z0-9 ]+$/;
-  const maxLength = 10;
+    const validNameRegex = /^[A-Za-z0-9 ]+$/;
+    const maxLength = 4;
 
-  let isValid = true;
+    let isValid = true;
 
-  setTeam1Error('');
-  setTeam2Error('');
+    setTeam1Error('');
+    setTeam2Error('');
 
-  if (!trimmedTeam1) {
-    setTeam1Error('Please enter Team 1 name');
-    isValid = false;
-  } else if (trimmedTeam1.length > maxLength) {
-    setTeam1Error(`Team 1 name must be at most ${maxLength} characters`);
-    isValid = false;
-  } else if (!validNameRegex.test(trimmedTeam1)) {
-    setTeam1Error('Team 1 name contains invalid characters');
-    isValid = false;
-  }
+    if (!trimmedTeam1) {
+      setTeam1Error('Please enter Team 1 name');
+      isValid = false;
+    } else if (trimmedTeam1.length > maxLength) {
+      setTeam1Error(`Team 1 name must be at most ${maxLength} characters`);
+      isValid = false;
+    } else if (!validNameRegex.test(trimmedTeam1)) {
+      setTeam1Error('Team 1 name contains invalid characters');
+      isValid = false;
+    }
 
-  if (!trimmedTeam2) {
-    setTeam2Error('Please enter Team 2 name');
-    isValid = false;
-  } else if (trimmedTeam2.length > maxLength) {
-    setTeam2Error(`Team 2 name must be at most ${maxLength} characters`);
-    isValid = false;
-  } else if (!validNameRegex.test(trimmedTeam2)) {
-    setTeam2Error('Team 2 name contains invalid characters');
-    isValid = false;
-  }
+    if (!trimmedTeam2) {
+      setTeam2Error('Please enter Team 2 name');
+      isValid = false;
+    } else if (trimmedTeam2.length > maxLength) {
+      setTeam2Error(`Team 2 name must be at most ${maxLength} characters`);
+      isValid = false;
+    } else if (!validNameRegex.test(trimmedTeam2)) {
+      setTeam2Error('Team 2 name contains invalid characters');
+      isValid = false;
+    }
 
-  if (
-    trimmedTeam1 &&
-    trimmedTeam2 &&
-    trimmedTeam1.toLowerCase() === trimmedTeam2.toLowerCase()
-  ) {
-    setTeam1Error('Team names must be different');
-    setTeam2Error('Team names must be different');
-    isValid = false;
-  }
+    if (
+      trimmedTeam1 &&
+      trimmedTeam2 &&
+      trimmedTeam1.toLowerCase() === trimmedTeam2.toLowerCase()
+    ) {
+      setTeam1Error('Team names must be different');
+      setTeam2Error('Team names must be different');
+      isValid = false;
+    }
 
-  if (!isValid) {
-    Alert.alert('Validation', 'Please fix the highlighted fields.');
-  }
+    if (!isValid) {
+      Alert.alert('Validation', 'Please fix the highlighted fields.');
+    }
 
-  return isValid;
-};
+    return isValid;
+  };
   const handleSaveMatch = async () => {
     const trimmedTeam1 = team1Name.trim();
     const trimmedTeam2 = team2Name.trim();
