@@ -37,53 +37,7 @@ export default function AddScoreScreen({
   const [newOvers, setNewOvers] = useState(overs);
   const [loading, setLoading] = useState(false);
 
-  // const handleSave = async () => {
-  //   const runsTrimmed = newRuns.trim();
-  //   const wicketsTrimmed = newWickets.trim();
-  //   const oversTrimmed = newOvers.trim();
-
-  //   if (!runsTrimmed || !oversTrimmed) {
-  //     Alert.alert('Validation', 'Please enter at least runs and overs.');
-  //     return;
-  //   }
-
-  //   const runsNumber = parseInt(runsTrimmed, 10);
-  //   const wicketsNumber = wicketsTrimmed ? parseInt(wicketsTrimmed, 10) : 0;
-  //   const oversNumber = parseFloat(oversTrimmed);
-
-  //   if (Number.isNaN(runsNumber) || Number.isNaN(oversNumber)) {
-  //     Alert.alert('Validation', 'Runs and overs must be valid numbers.');
-  //     return;
-  //   }
-
-  //   if (runsNumber < 0 || wicketsNumber < 0 || oversNumber < 0) {
-  //     Alert.alert('Validation', 'Score values cannot be negative.');
-  //     return;
-  //   }
-
-  //   try {
-  //     setLoading(true);
-
-  //     await addScore(matchId, {
-  //       runs: runsNumber,
-  //       overs: oversNumber,
-  //       wickets: wicketsNumber,
-  //     });
-
-  //     // Optional: show a small confirmation
-  //     // Alert.alert('Success', 'Score updated.');
-
-  //     // Go back to previous screen (Match Detail), which should refetch on focus
-  //     router.back();
-  //   } catch (err) {
-  //     const message =
-  //       err instanceof Error ? err.message : 'Failed to update score.';
-  //     Alert.alert('Error', message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  const handleSave = async () => {
+ const handleSave = async () => {
     if (loading) return; // extra safety
 
     const runsTrimmed = newRuns.trim();
