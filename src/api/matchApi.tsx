@@ -8,7 +8,7 @@ export type Match = {
   status: string;
 };
 
-const BASE_URL = 'http://192.168.1.11:2020';
+const BASE_URL = 'http://192.168.1.9:2020';
 
 async function parseJsonResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
@@ -52,14 +52,25 @@ export async function addScore(
 
   return parseJsonResponse<Match>(res);
 }
-export type Team = {
+
+export type Player = {
+  id: number;
+  name: string;
+  jerseyNumber?: number;
+  role?: string;
+  battingStyle?: string;
+  bowlingStyle?: string;
+};
+
+export type TeamResponse = {
   id: number;
   name: string;
   captainName: string;
   logoUrl?: string;
+  players: Player[];
 };
 
-export async function getTeams(): Promise<Team[]> {
+export async function getTeams(): Promise<TeamResponse[]> {
   const res = await fetch(`${BASE_URL}/api/teams`);
 
   if (!res.ok) {
