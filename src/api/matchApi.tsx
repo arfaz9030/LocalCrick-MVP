@@ -8,7 +8,7 @@ export type Match = {
   status: string;
 };
 
-const BASE_URL = 'http://192.168.1.9:2020';
+const BASE_URL = 'http://192.168.1.16:2020';
 
 async function parseJsonResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
