@@ -8,7 +8,7 @@ interface OTPInputProps {
 }
 
 export default function OTPInput({ value, onChange }: OTPInputProps) {
-  const [code, setCode] = useState(['', '', '', '']);
+  const [code, setCode] = useState(['', '', '', '', '']);
   const inputs = useRef<Array<NativeTextInput | null>>([]);
 
   const handleChange = (text: string, index: number) => {
@@ -18,7 +18,7 @@ export default function OTPInput({ value, onChange }: OTPInputProps) {
     onChange(newCode.join(''));
 
     // Move to next input if filled
-    if (text && index < 3) {
+    if (text && index < 4) {
       inputs.current[index + 1]?.focus();
     }
   };
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     height: 56,
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#009688',
     backgroundColor: '#ffffff',
   },
 });

@@ -3,7 +3,7 @@
  * Conforming to backend Spring Boot endpoints (e.g. REST API structure)
  */
 
-export const BASE_URL = 'https://api.cricheroes.com/v1';
+export const BASE_URL = 'http://192.168.1.22:2020';
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -18,18 +18,24 @@ export const authApi = {
    */
   async verifyMobile(phoneNumber: string): Promise<ApiResponse> {
     try {
-      const response = await fetch(`${BASE_URL}/auth/verify-mobile`, {
+      console.log("POST:", `${BASE_URL}/api/auth/request-otp`);
+      console.log("Phone:", phoneNumber);
+      const response = await fetch(`${BASE_URL}/api/auth/request-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ phoneNumber }),
+        // body: JSON.stringify({ phoneNumber })
+        body: JSON.stringify({
+          mobileNumber: phoneNumber
+        }),
       });
-      
+      console.log("Status:", response.status);
+      console.log("Body:", await response.clone().json());
       if (!response.ok) {
         throw new Error('Verification failed');
       }
-      
+
       return await response.json();
     } catch (error) {
       console.error('Error in verifyMobile api:', error);
@@ -45,12 +51,16 @@ export const authApi = {
    */
   async verifyOTP(phoneNumber: string, code: string): Promise<ApiResponse<{ token: string; playerId: string }>> {
     try {
-      const response = await fetch(`${BASE_URL}/auth/verify-otp`, {
+      const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ phoneNumber, code }),
+        // body: JSON.stringify({ phoneNumber, code })
+        body: JSON.stringify({
+          mobileNumber: phoneNumber,
+          otp: code
+        }),
       });
 
       if (!response.ok) {

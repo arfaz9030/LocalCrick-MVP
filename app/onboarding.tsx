@@ -18,34 +18,66 @@ export default function OnboardingScreen() {
   const [step, setStep] = useState<OnboardingStep>('PROMO');
   const [phoneNumber, setPhoneNumber] = useState('7680922101');
   const [otpCode, setOtpCode] = useState('');
-
+  console.log("STEP 1 - Continue button clicked");
   const handleTruecallerVerify = async () => {
     setStep('WAITING');
     try {
+      console.log("STEP 2 - Calling verifyMobile()");
       const response = await authApi.verifyMobile(phoneNumber);
-      if (response.success) {
-        setTimeout(() => {
-          setStep('SURVEY');
-        }, 1500);
-      }
+      console.log("STEP 3 - API Response", response);
+      // if (response.success) {
+      //   setTimeout(() => {
+      //     setStep('SURVEY');
+      //   }, 1500);
+      // }
+      console.log("OTP Generated Successfully");
+
+      setTimeout(() => {
+        setStep('OTP_INPUT');
+      }, 500);
     } catch (error) {
       setStep('LOGIN_OPTIONS');
     }
   };
 
-  const handleManualPhoneSubmit = () => {
-    setStep('OTP_INPUT');
-  };
+  // const handleManualPhoneSubmit = () => {
+  //   setStep('OTP_INPUT');
+  // };
+  const handleManualPhoneSubmit = async () => {
+    try {
+      console.log("Calling request-otp API for:", phoneNumber);
+
+      setStep('WAITING');
+
+      const response = await authApi.verifyMobile(phoneNumber);
+
+      console.log("Request OTP Response:", response);
+
+      // Backend returned successfully
+      setStep('OTP_INPUT');
+
+    } catch (error) {
+      console.error("Request OTP Failed:", error);
+
+      setStep('LOGIN_OPTIONS');
+    }
+  }
 
   const handleOtpVerify = async () => {
     setStep('WAITING');
     try {
       const response = await authApi.verifyOTP(phoneNumber, otpCode);
-      if (response.success) {
-        setTimeout(() => {
-          setStep('SURVEY');
-        }, 1500);
-      }
+      // if (response.success) {
+      //   setTimeout(() => {
+      //     setStep('SURVEY');
+      //   }, 1500);
+      // }
+      console.log("Verify OTP Response:", response);
+      // If backend didn't throw an error,
+      // treat this as successful verification.
+      setTimeout(() => {
+        setStep('SURVEY');
+      }, 500);
     } catch (error) {
       setStep('LOGIN_OPTIONS');
     }
