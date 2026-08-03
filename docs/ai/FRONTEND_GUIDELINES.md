@@ -17,6 +17,47 @@ development workflow for the CrickHero mobile application.
 Every frontend developer and AI assistant must follow these guidelines.
 
 ---
+# Document Ownership
+
+This document defines frontend implementation standards only.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- UI_DESIGN_SYSTEM.md (visual design system)
+- API_CONTRACT.md (API specification)
+- CODING_STANDARDS.md (general coding standards)
+
+Implementation details belong here.
+
+Project governance belongs in the Engineering Handbook.
+
+---
+
+# Scope
+
+This document applies to:
+
+- React Native
+- Expo
+- Expo Router
+- React Native Paper
+- Components
+- Screens
+- Hooks
+- Services
+- Styling
+- Navigation
+- State Management
+
+This document does not define:
+
+- Backend implementation
+- API specifications
+- Authentication architecture
+- Engineering governance
+
+---
 
 # Tech Stack
 
@@ -655,7 +696,13 @@ Potential future additions:
 - Localization
 - Push Notifications
 - Accessibility Audit
+Before adopting any future enhancement, evaluate it against:
 
+- 00_AI_ENGINEERING_HANDBOOK.md
+- Existing project architecture
+- MVP priorities
+
+to ensure it aligns with the project's engineering standards and roadmap.
 ---
 
 # References
