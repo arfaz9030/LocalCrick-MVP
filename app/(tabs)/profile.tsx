@@ -14,7 +14,7 @@ export default function ProfileScreen() {
       {/* Profile Header */}
       <Surface style={styles.profileHeader} elevation={1}>
         <View style={styles.avatarContainer}>
-          <Avatar.Text size={80} label="AM" backgroundColor="#1d978e" labelStyle={styles.avatarLabel} />
+          <Avatar.Text size={80} label="AM" style={styles.avatar} labelStyle={styles.avatarLabel} />
           <View style={styles.verifiedBadge}>
             <List.Icon icon="check-decagram" color="#009688" style={styles.badgeIcon} />
           </View>
@@ -97,7 +97,6 @@ export default function ProfileScreen() {
         }
         style={styles.logoutBtn}
         textColor="#d32f2f"
-        borderColor="#d32f2f"
         labelStyle={styles.logoutBtnLabel}
         icon="logout"
       >
@@ -128,6 +127,9 @@ const styles = StyleSheet.create({
   avatarContainer: {
     position: 'relative',
     marginBottom: 12,
+  },
+  avatar: {
+    backgroundColor: '#1d978e',
   },
   avatarLabel: {
     fontSize: 28,
@@ -184,6 +186,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 12,
     borderWidth: 1.5,
+    borderColor: '#d32f2f',
   },
   logoutBtnLabel: {
     fontSize: 14,

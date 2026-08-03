@@ -2,21 +2,36 @@
  * CrickHeroes Frontend Auth Service integration file
  * Conforming to backend Spring Boot endpoints (e.g. REST API structure)
  */
+import { getToken, saveToken } from './tokenService';
 
-export const BASE_URL = 'http://192.168.1.22:2020';
+export const BASE_URL = 'http://192.168.1.13:2020';
 
-export interface ApiResponse<T = any> {
-  success: boolean;
+// export interface ApiResponse<T = any> {
+//   success: boolean;
+//   message: string;
+//   data?: T;
+// }
+export interface RequestOtpResponse {
   message: string;
-  data?: T;
+  mobileNumber: string;
+  verified: boolean;
+  expiresAt: string;
+  otp: string;
+  userId: number;
 }
-
+export interface VerifyOtpResponse {
+  message: string;
+  mobileNumber: string;
+  token: string;
+  userId: number;
+  refreshToken: string | null;
+}
 export const authApi = {
   /**
    * Triggers OTP or Quick Mobile Verification
    * @param phoneNumber Player's mobile number
    */
-  async verifyMobile(phoneNumber: string): Promise<ApiResponse> {
+  async verifyMobile(phoneNumber: string): Promise<RequestOtpResponse> {
     try {
       console.log("POST:", `${BASE_URL}/api/auth/request-otp`);
       console.log("Phone:", phoneNumber);
@@ -31,7 +46,9 @@ export const authApi = {
         }),
       });
       console.log("Status:", response.status);
-      console.log("Body:", await response.clone().json());
+      const body = await response.clone().text();
+      console.log("Status:", response.status);
+      console.log("Raw Body:", body);
       if (!response.ok) {
         throw new Error('Verification failed');
       }
@@ -40,7 +57,8 @@ export const authApi = {
     } catch (error) {
       console.error('Error in verifyMobile api:', error);
       // Fallback for local simulation
-      return { success: true, message: 'Simulated success' };
+      // return { success: true, message: 'Simulated success' };
+      throw error;
     }
   },
 
@@ -49,7 +67,7 @@ export const authApi = {
    * @param phoneNumber Mobile number
    * @param code 4-digit code
    */
-  async verifyOTP(phoneNumber: string, code: string): Promise<ApiResponse<{ token: string; playerId: string }>> {
+  async verifyOTP(phoneNumber: string, code: string): Promise<VerifyOtpResponse> {
     try {
       const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
         method: 'POST',
@@ -66,16 +84,26 @@ export const authApi = {
       if (!response.ok) {
         throw new Error('OTP verification failed');
       }
+      const data = await response.json();
+      console.log("JWT Received:", data.token);
+      // Save JWT securely
+      await saveToken(data.token);
 
-      return await response.json();
-    } catch (error) {
+      // // 🔒 Save refresh token
+      // if (data.refreshToken) {
+      //   await saveRefreshToken(data.refreshToken);
+      // }
+      const storedToken = await getToken();
+
+      console.log("Stored Token:", storedToken);
+
+      return data;
+    }
+    catch (error) {
       console.error('Error in verifyOTP api:', error);
       // Fallback for local simulation
-      return {
-        success: true,
-        message: 'Simulated OTP success',
-        data: { token: 'mock-jwt-token-xyz', playerId: 'player-789' }
-      };
+      throw error;
+
     }
   }
 };

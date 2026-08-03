@@ -45,8 +45,8 @@ export default function OTPInput({ value, onChange }: OTPInputProps) {
           textAlign="center"
           outlineColor="#bdbdbd"
           activeOutlineColor="#009688"
-          ref={(ref) => {
-            inputs.current[index] = ref as any;
+          ref={(ref: any) => {
+            inputs.current[index] = ref;
           }}
           maxLength={1}
         />

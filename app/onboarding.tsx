@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, Dialog, Portal, Text } from 'react-native-paper';
 import OTPInput from '../components/OTPInput';
 import PhoneInput from '../components/PhoneInput';
@@ -18,7 +18,6 @@ export default function OnboardingScreen() {
   const [step, setStep] = useState<OnboardingStep>('PROMO');
   const [phoneNumber, setPhoneNumber] = useState('7680922101');
   const [otpCode, setOtpCode] = useState('');
-  console.log("STEP 1 - Continue button clicked");
   const handleTruecallerVerify = async () => {
     setStep('WAITING');
     try {
@@ -67,19 +66,28 @@ export default function OnboardingScreen() {
     setStep('WAITING');
     try {
       const response = await authApi.verifyOTP(phoneNumber, otpCode);
-      // if (response.success) {
-      //   setTimeout(() => {
-      //     setStep('SURVEY');
-      //   }, 1500);
-      // }
+
       console.log("Verify OTP Response:", response);
-      // If backend didn't throw an error,
-      // treat this as successful verification.
-      setTimeout(() => {
-        setStep('SURVEY');
-      }, 500);
+      // Success only if backend returned a valid JWT
+      if (response.token && response.userId) {
+        setTimeout(() => {
+          setStep("SURVEY");
+        }, 500);
+      } else {
+        console.log("Invalid OTP");
+
+        Alert.alert("Invalid OTP", "Please enter a valid OTP.");
+
+        setStep("OTP_INPUT");
+      }
+
     } catch (error) {
-      setStep('LOGIN_OPTIONS');
+      console.error("Verify OTP Error:", error);
+
+      Alert.alert("Invalid OTP", "OTP verification failed.");
+
+      setStep("OTP_INPUT");
+
     }
   };
 
