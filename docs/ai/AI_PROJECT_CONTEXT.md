@@ -19,6 +19,43 @@ This document is the project's "single source of truth" for AI context.
 
 ---
 
+# Document Ownership
+
+This document provides the permanent project context for AI assistants working on the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- CURRENT_STATUS.md (current implementation progress)
+- DECISIONS.md (approved architectural decisions)
+
+This document contains long-term project context.
+
+Implementation standards belong in the dedicated engineering guideline documents.
+
+---
+# Scope
+
+This document applies to:
+
+- Long-term project context
+- Project vision
+- Technology stack
+- Development philosophy
+- AI responsibilities
+- AI behaviour
+- Long-term engineering goals
+
+This document does not define:
+
+- Frontend implementation
+- Backend implementation
+- API specifications
+- Sprint progress
+- Engineering governance
+
+---
+
 # Project Summary
 
 Project Name
@@ -213,15 +250,31 @@ Never invent APIs.
 
 # AI Workflow
 
-Architecture Decision
+Requirement
 
 ↓
 
-Implementation
+Engineering Handbook
 
 ↓
 
-Code Review
+Relevant Project Documents
+
+↓
+
+Existing Implementation
+
+↓
+
+Implementation Plan
+
+↓
+
+Minimum Safe Change
+
+↓
+
+Self Review
 
 ↓
 
@@ -229,14 +282,11 @@ Testing
 
 ↓
 
-Debugging
+Documentation Update
 
 ↓
 
-Merge
-
-Every generated solution should follow this flow.
-
+Ready for Review
 ---
 
 # AI Chat Responsibilities
@@ -284,18 +334,15 @@ Follow:
 Never violate those documents.
 
 ---
-
 # Documentation Hierarchy
 
-When documents disagree, use this priority:
+When project documents appear to conflict, follow the priority defined in:
 
-1. AI_PROJECT_CONTEXT.md
-2. DECISIONS.md
-3. API_CONTRACT.md
-4. CODING_STANDARDS.md
-5. PROJECT_OVERVIEW.md
-6. ROADMAP.md
-7. CURRENT_STATUS.md
+00_AI_ENGINEERING_HANDBOOK.md
+
+The Engineering Handbook is the authoritative source for project governance and document precedence.
+
+Refer to the Engineering Handbook for the complete document priority order.
 
 ---
 
@@ -347,7 +394,7 @@ Prefer minimal, safe, reviewable changes.
 The project should remain understandable by a new developer after six months without requiring explanations from the original author.
 
 Documentation should be sufficient for onboarding.
-
+The Engineering Handbook remains the governing document for all engineering activities throughout the project's lifecycle.
 ---
 
 # Success Criteria
@@ -365,6 +412,17 @@ The project is successful when:
 ✓ Documentation stays synchronized with implementation.
 
 ✓ AI-generated code follows project standards.
+
+---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- CURRENT_STATUS.md
+- DECISIONS.md
+- PROJECT_OVERVIEW.md
+- API_CONTRACT.md
 
 ---
 

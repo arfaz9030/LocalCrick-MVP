@@ -5,6 +5,43 @@
 **Overall Progress:** ~25% (Estimated)
 
 ---
+# Document Ownership
+
+This document tracks the current implementation status of the project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- MASTER_CHECKLIST.md (feature completion)
+- ROADMAP.md (future planning)
+
+This document records current progress only.
+
+Implementation standards belong in the relevant engineering guideline documents.
+
+---
+# Scope
+
+This document applies to:
+
+- Current implementation progress
+- Active sprint status
+- Completed work
+- Work in progress
+- Known blockers
+- Technical debt
+Technical debt should be reviewed after each completed milestone and prioritized based on project impact and MVP goals.
+- Current risks
+
+This document does not define:
+
+- Engineering standards
+- API specifications
+- Frontend implementation
+- Backend implementation
+- Future product planning
+
+---
 
 # Project Health
 
@@ -25,6 +62,20 @@
 ## Sprint Goal
 
 Complete Authentication Module and establish a stable project foundation.
+
+---
+# Status Update Workflow
+
+Whenever project status changes:
+
+1. Update completed features.
+2. Update work in progress.
+3. Update blockers.
+4. Update technical debt.
+5. Update overall MVP progress.
+6. Update the Last Updated field.
+
+Do not use this document to record architectural decisions or implementation standards.
 
 ---
 
@@ -294,6 +345,7 @@ Learning Mentor
 Status:
 Planned
 
+Additional AI roles will be activated as the project grows.
 ---
 
 # Daily Update Template
@@ -345,6 +397,29 @@ Summary
 Overall MVP
 
 ██░░░░░░░░ 25%
+
+---
+
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- MASTER_CHECKLIST.md
+- ROADMAP.md
+- DECISIONS.md
+- API_CONTRACT.md
+
+---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- MASTER_CHECKLIST.md
+- ROADMAP.md
+- DECISIONS.md
+- API_CONTRACT.md
 
 ---
 

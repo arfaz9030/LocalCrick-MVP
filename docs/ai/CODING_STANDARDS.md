@@ -24,6 +24,45 @@ Objectives:
 
 ---
 
+# Document Ownership
+
+This document defines coding standards and code quality expectations for the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- FRONTEND_GUIDELINES.md (frontend implementation)
+- BACKEND_GUIDELINES.md (backend implementation)
+
+Implementation-specific rules belong in the implementation guideline documents.
+
+Project governance belongs in the Engineering Handbook.
+
+---
+# Scope
+
+This document applies to:
+
+- Naming conventions
+- Code formatting
+- File organization
+- Logging
+- Error handling
+- TypeScript practices
+- React Native coding standards
+- Spring Boot coding standards
+- Code review expectations
+
+This document does not define:
+
+- Frontend architecture
+- Backend architecture
+- API specifications
+- Engineering governance
+
+---
+
+
 # 2. Core Principles
 
 ## Rule 1
@@ -82,6 +121,17 @@ Never duplicate logic.
 
 Extract reusable functionality.
 
+---
+# Coding Workflow
+
+Before writing code:
+
+1. Read 00_AI_ENGINEERING_HANDBOOK.md.
+2. Read the relevant implementation guideline.
+3. Review existing implementation.
+4. Reuse existing code whenever appropriate.
+5. Implement the minimum safe change.
+6. Self-review against this document before completion.
 ---
 
 # 3. Naming Conventions
@@ -460,6 +510,8 @@ Before merging, verify:
 
 ☐ Matches architecture decisions
 
+☐ Minimum safe change implemented
+
 ---
 
 # 19. Definition of Clean Code
@@ -509,8 +561,20 @@ Review this document:
 - Before major refactoring
 - When introducing new frameworks
 - When adding new AI workflows
+- Review this document whenever new coding conventions are formally adopted or approved through DECISIONS.md.
 
 ---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- FRONTEND_GUIDELINES.md
+- BACKEND_GUIDELINES.md
+- API_CONTRACT.md
+- DECISIONS.md
+
+--- 
 
 End of Document
 
