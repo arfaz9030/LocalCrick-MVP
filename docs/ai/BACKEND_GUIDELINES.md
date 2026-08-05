@@ -16,6 +16,46 @@ package organization and development rules for the CrickHero backend.
 Every backend developer and AI assistant must follow these standards.
 
 ---
+# Document Ownership
+
+This document defines backend implementation standards only.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- API_CONTRACT.md (API specification)
+- CODING_STANDARDS.md (general coding standards)
+
+Implementation details belong here.
+
+Project governance belongs in the Engineering Handbook.
+
+---
+# Scope
+
+This document applies to:
+
+- Spring Boot
+- Controllers
+- Services
+- Repositories
+- DTOs
+- Entities
+- Security
+- JWT Authentication
+- OTP Authentication
+- Database Access
+- Validation
+- Exception Handling
+
+This document does not define:
+
+- Frontend implementation
+- UI design
+- API specifications
+- Engineering governance
+
+---
 
 # Technology Stack
 
@@ -38,6 +78,8 @@ Persistence
 Database
 
 - PostgreSQL
+- Maria DB
+- Java Inmemory DB(for testing)
 
 Authentication
 
@@ -52,6 +94,19 @@ Documentation
 
 - Swagger/OpenAPI (Future)
 
+---
+
+# Backend AI Workflow
+
+Before generating backend code:
+
+1. Read 00_AI_ENGINEERING_HANDBOOK.md.
+2. Read BACKEND_GUIDELINES.md.
+3. Read API_CONTRACT.md.
+4. Review the existing backend implementation.
+5. Reuse existing controllers, services, repositories, DTOs, and utilities whenever appropriate.
+6. Generate the minimum safe change.
+7. Perform a self-review before completion.
 ---
 
 # Backend Philosophy
@@ -579,6 +634,13 @@ Never
 - Observability
 - Rate Limiting
 
+Before adopting any future enhancement, evaluate it against:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- Existing project architecture
+- MVP priorities
+
+to ensure it aligns with the project's engineering standards and roadmap.
 ---
 
 # References
@@ -594,6 +656,31 @@ Prefer official documentation for
 When project-specific standards conflict with examples,
 follow this project's documented standards unless an
 architectural decision updates them.
+
+---
+# Related Documents
+
+Use this document together with the following project documents.
+
+## Engineering Governance
+
+→ 00_AI_ENGINEERING_HANDBOOK.md
+
+## API Specification
+
+→ API_CONTRACT.md
+
+## Coding Standards
+
+→ CODING_STANDARDS.md
+
+## Architecture Decisions
+
+→ DECISIONS.md
+
+## Project Context
+
+→ AI_PROJECT_CONTEXT.md
 
 ---
 

@@ -31,6 +31,54 @@ No endpoint should be implemented or modified without updating this document fir
 
 ---
 
+# Document Ownership
+
+This document defines the API contract between the frontend and backend.
+
+It is the authoritative source for:
+
+- API endpoints
+- Request payloads
+- Response payloads
+- Validation rules
+- Authentication requirements
+- HTTP status codes
+- Error response formats
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- BACKEND_GUIDELINES.md (backend implementation)
+- FRONTEND_GUIDELINES.md (frontend integration)
+
+Implementation details belong in the implementation guidelines.
+
+Project governance belongs in the Engineering Handbook.
+
+---
+# Scope
+
+This document applies to:
+
+- REST API endpoints
+- Request payloads
+- Response payloads
+- HTTP methods
+- Validation rules
+- Authentication requirements
+- Error response formats
+- API versioning
+
+This document does not define:
+
+- Backend implementation
+- Frontend implementation
+- Business logic
+- UI behaviour
+- Engineering governance
+
+---
+
 # General Standards
 
 ## Base URL
@@ -93,6 +141,19 @@ JWT Bearer Token
 Authorization Header
 
 Authorization: Bearer <JWT_TOKEN>
+
+---
+# API AI Workflow
+
+Before generating or modifying APIs:
+
+1. Read 00_AI_ENGINEERING_HANDBOOK.md.
+2. Read API_CONTRACT.md.
+3. Review the existing backend implementation.
+4. Review the existing frontend integration (if applicable).
+5. Do not invent endpoints, request fields, response fields, or validation rules.
+6. Generate the minimum safe change.
+7. Perform a self-review before completion.
 
 ---
 
@@ -430,7 +491,16 @@ Future
 
 Major breaking changes require a new API version.
 
+Future API changes should be evaluated against:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- Existing project architecture
+- Backward compatibility requirements
+
+before implementation.
+
 ---
+
 
 # Testing Checklist
 
@@ -456,6 +526,32 @@ Version 1.0
 - Team placeholders added.
 - Match placeholders added.
 - Error response standard defined.
+
+---
+
+# Related Documents
+
+Use this document together with the following project documents.
+
+## Engineering Governance
+
+→ 00_AI_ENGINEERING_HANDBOOK.md
+
+## Backend Implementation
+
+→ BACKEND_GUIDELINES.md
+
+## Frontend Integration
+
+→ FRONTEND_GUIDELINES.md
+
+## Coding Standards
+
+→ CODING_STANDARDS.md
+
+## Architecture Decisions
+
+→ DECISIONS.md
 
 ---
 
