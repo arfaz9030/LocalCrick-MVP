@@ -21,6 +21,41 @@ Every significant decision should answer:
 This document is the single source of truth for architectural decisions.
 
 ---
+# Document Ownership
+
+This document records architectural and engineering decisions for the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- AI_PROJECT_CONTEXT.md (long-term project context)
+- CURRENT_STATUS.md (implementation progress)
+
+This document records approved engineering decisions.
+
+Implementation details belong in the implementation guideline documents.
+
+---
+# Scope
+
+This document applies to:
+
+- Architecture decisions
+- Technology selection
+- Framework selection
+- Design patterns
+- Engineering principles
+- Project-wide technical decisions
+
+This document does not define:
+
+- Frontend implementation
+- Backend implementation
+- API specifications
+- Sprint planning
+- Current project status
+
+---
 
 # Decision Status
 
@@ -31,6 +66,18 @@ Use one of the following statuses:
 - Superseded
 - Rejected
 - Deprecated
+
+---
+# ADR Workflow
+
+Whenever a significant engineering decision is made:
+
+1. Review 00_AI_ENGINEERING_HANDBOOK.md.
+2. Evaluate alternatives.
+3. Document the selected decision.
+4. Record the reason and consequences.
+5. Update related project documents if required.
+6. Mark the ADR status appropriately.
 
 ---
 
@@ -547,6 +594,70 @@ Reason
 Use the strengths of each tool.
 
 ---
+# ADR-016
+
+## Title
+
+Modular Monolith Architecture
+
+### Status
+
+Accepted
+
+### Date
+
+August 2026
+
+### Context
+
+The MVP requires rapid delivery with limited development time while remaining scalable for future growth.
+
+### Alternatives
+
+- Microservices
+- Modular Monolith
+
+### Decision
+
+Use a Modular Monolith architecture for the MVP.
+
+### Reason
+
+- Faster development
+- Simpler deployment
+- Easier debugging
+- Lower operational complexity
+- Clear module boundaries
+- Future migration to microservices remains possible
+
+### Consequences
+
+Pros
+
+- Faster MVP delivery
+- Simpler architecture
+- Easier testing
+- Lower maintenance overhead
+
+Cons
+
+- Future service extraction may require additional refactoring if the application grows significantly.
+
+### Future Considerations
+
+If the project scales substantially, modules such as Authentication, Teams, Matches, Live Scoring, and Notifications can be extracted into independent microservices.
+
+---
+
+### Implementation
+
+The implementation of this decision shall follow the standards defined in:
+
+- API_CONTRACT.md
+- BACKEND_GUIDELINES.md
+- CODING_STANDARDS.md
+
+---
 
 # Future Decisions
 
@@ -586,6 +697,18 @@ Reason
 Consequences
 
 Future Considerations
+
+---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- AI_PROJECT_CONTEXT.md
+- CURRENT_STATUS.md
+- API_CONTRACT.md
+- BACKEND_GUIDELINES.md
+- FRONTEND_GUIDELINES.md
 
 ---
 
