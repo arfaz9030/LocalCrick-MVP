@@ -1,29 +1,5 @@
-// import { Stack } from 'expo-router';
-
-// export default function RootLayout() {
-//   return (
-//     <Stack
-//       screenOptions={{
-//         headerStyle: {
-//           backgroundColor: '#0B1220',
-//         },
-//         headerTintColor: '#FFFFFF',
-//         headerTitleStyle: {
-//           fontWeight: '700',
-//         },
-//         contentStyle: {
-//           backgroundColor: '#0B1220',
-//         },
-//       }}
-//     >
-//       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-//       <Stack.Screen name="create-match" options={{ title: 'Create Match' }} />
-//       <Stack.Screen name="match/[matchId]" options={{ title: 'Match Detail' }} />
-//     </Stack>
-//   );
-// }
 import { Stack, useRouter, useSegments } from 'expo-router';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PaperProvider } from 'react-native-paper';
 
 interface AuthContextType {
@@ -47,18 +23,18 @@ export default function RootLayout() {
 
   const router = useRouter();
   const segments = useSegments();
-  // useEffect(() => {
-  //   const inTabsGroup = segments[0] === '(tabs)';
-  //   const isOnboarding = segments[0] === 'onboarding';
+  useEffect(() => {
+    const inTabsGroup = segments[0] === '(tabs)';
+    const isOnboarding = segments[0] === 'onboarding';
 
-  //   if (!isAuthenticated && inTabsGroup) {
-  //     router.replace('/onboarding');
-  //   }
+    if (!isAuthenticated && inTabsGroup) {
+      router.replace('/onboarding');
+    }
 
-  //   if (isAuthenticated && isOnboarding) {
-  //     router.replace('/(tabs)');
-  //   }
-  // }, [isAuthenticated, segments, router]);
+    if (isAuthenticated && isOnboarding) {
+      router.replace('/(tabs)');
+    }
+  }, [isAuthenticated, segments, router]);
 
   const login = () => setIsAuthenticated(true);
   const logout = () => setIsAuthenticated(false);

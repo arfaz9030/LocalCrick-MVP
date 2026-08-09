@@ -268,89 +268,35 @@ Never rely solely on AI assumptions.
 
 ---
 
-# 9. Coding Standards
+# 9. Engineering Standards
 
-- TypeScript everywhere
-- Meaningful naming
-- Small functions
-- Reusable components
-- Consistent folder structure
-- Error handling
-- Logging
-- Comments only where helpful
+Project implementation must follow:
 
----
-
-# 10. AI Collaboration Strategy
-
-Different AI chats have different responsibilities.
-
-## Project Tech Lead
-
-Makes architecture decisions.
+- CODING_STANDARDS.md
+- FRONTEND_GUIDELINES.md
+- BACKEND_GUIDELINES.md
+- API_CONTRACT.md
+- DECISIONS.md
 
 ---
 
-## Frontend Engineer
+# 10. AI Collaboration
 
-Builds React Native features.
+AI-assisted development follows the Engineering Handbook and the reusable role definitions in:
 
+AI_PROMPTS.md
+
+AI assistants must use the appropriate project documents for the task being performed.
 ---
 
-## Backend Engineer
+# 11. Engineering Workflow
 
-Builds Spring Boot APIs.
+Engineering work follows the workflow defined in:
 
----
+00_AI_ENGINEERING_HANDBOOK.md
 
-## Debugging Specialist
-
-Finds and fixes bugs.
-
----
-
-## Architecture Specialist
-
-Designs scalable systems.
-
----
-
-## Learning Mentor
-
-Explains concepts.
-
----
-
-## Code Reviewer
-
-Reviews code quality.
-
----
-
-# 11. AI Workflow
-
-Architecture Decision
-
-↓
-
-Implementation
-
-↓
-
-Code Review
-
-↓
-
-Testing
-
-↓
-
-Bug Fix
-
-↓
-
-Merge
-
+This document provides project context and direction only.
+Implementation workflows are defined by the Engineering Handbook and relevant engineering guidelines.
 ---
 
 # 12. Development Rules
@@ -382,41 +328,39 @@ Unnecessary libraries
 Duplicate code
 
 ---
+# 13. Security Direction
 
-# 13. Security Principles
+Security is a project-wide requirement.
 
-- JWT Authentication
-- Validate every request
-- Never trust client input
-- Server-side validation
-- Secure password and OTP handling
-- Proper exception handling
+Authentication, authorization, validation, secure data handling, and endpoint protection must follow:
+
+- API_CONTRACT.md
+- BACKEND_GUIDELINES.md
+- CODING_STANDARDS.md
+- DECISIONS.md
 
 ---
 
-# 14. Performance Goals
+# 14. Performance Direction
 
-- Fast app startup
-- Responsive UI
-- Minimal unnecessary renders
+The MVP should provide:
+
+- Responsive user interactions
 - Efficient API communication
-- Lightweight components
+- Reasonable application startup performance
+- Maintainable and efficient components
+
+Performance optimization should be introduced when justified by actual requirements or measured bottlenecks.
 
 ---
 
-# 15. Documentation Rules
+# 15. Documentation
 
-Every major feature should have:
+Project documentation is maintained according to the Engineering Handbook.
 
-Purpose
+Each document has a defined responsibility and should remain synchronized with the implementation.
 
-API
-
-Flow
-
-Future improvements
-
-Known limitations
+Feature-specific documentation should be maintained in the appropriate project document.
 
 ---
 

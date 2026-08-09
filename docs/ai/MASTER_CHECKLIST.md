@@ -12,7 +12,9 @@ Last Updated: July 2026
 
 # How to Use This File
 
-Open this document before writing any code.
+Read 00_AI_ENGINEERING_HANDBOOK.md first.
+
+Use this document as the daily execution and feature-completion dashboard.
 
 Use it to decide:
 
@@ -23,6 +25,43 @@ Use it to decide:
 - What comes next
 
 This file should always reflect the latest project state.
+---
+# Document Ownership
+
+This document is the daily execution and feature-completion dashboard for the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- CURRENT_STATUS.md (current implementation status)
+- ROADMAP.md (future planning)
+
+This document tracks execution status only.
+
+Engineering standards, API specifications, architecture decisions, and implementation guidance belong in their respective documents.
+---
+# Scope
+
+This document tracks:
+
+- Feature completion
+- Phase progress
+- Current sprint tasks
+- Daily focus
+- Blockers
+- Bugs
+- Technical debt
+- Release readiness
+- Documentation completion
+
+This document does not define:
+
+- Engineering standards
+- API specifications
+- Architecture decisions
+- Frontend implementation
+- Backend implementation
+- Future product strategy
 
 ---
 
@@ -223,14 +262,14 @@ Integration
 - [x] ROADMAP.md
 - [x] AI_PROJECT_CONTEXT.md
 - [x] AI_PROMPTS.md
+- [x] FRONTEND_GUIDELINES.md
+- [x] BACKEND_GUIDELINES.md
 
 Remaining
 
-- [ ] FRONTEND_GUIDELINES.md
-- [ ] BACKEND_GUIDELINES.md
 - [ ] CHANGELOG.md
-
 ---
+
 
 # Current Sprint
 
@@ -333,6 +372,16 @@ Summary:
 
 Next Action:
 
+---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- CURRENT_STATUS.md
+- ROADMAP.md
+- DECISIONS.md
+- API_CONTRACT.md
 ---
 
 End of Document

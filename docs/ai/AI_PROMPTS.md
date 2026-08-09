@@ -20,6 +20,22 @@ This file should evolve as the project evolves.
 
 ---
 
+# Document Ownership
+
+This document contains reusable AI prompts for engineering tasks within the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- AI_PROJECT_CONTEXT.md (project context)
+- Relevant project guidelines and contracts
+
+The Engineering Handbook defines how these prompts should be used.
+
+This document does not override engineering governance or implementation standards.
+
+---
+
 # Prompt Selection Guide
 
 | Situation | Prompt |
@@ -35,17 +51,20 @@ This file should evolve as the project evolves.
 | Sprint tracking | Sprint Manager |
 
 ---
-
 # Shared Rules (Applies to Every Prompt)
 
 Every AI working on CrickHero must:
 
-- Read AI_PROJECT_CONTEXT.md first.
-- Follow PROJECT_OVERVIEW.md.
+- Read 00_AI_ENGINEERING_HANDBOOK.md first.
+- Follow the task-specific document selection defined by the Engineering Handbook.
+- Read the relevant guideline before implementation.
+- Read API_CONTRACT.md when APIs are involved.
+- Review the existing implementation before modifying code.
 - Follow CODING_STANDARDS.md.
-- Follow API_CONTRACT.md.
-- Respect DECISIONS.md.
-- Check CURRENT_STATUS.md before recommending new work.
+- Respect DECISIONS.md for approved architecture decisions.
+- Check CURRENT_STATUS.md when current project status is relevant.
+- Make the minimum safe change.
+- Self-review before completion.
 
 Never:
 
@@ -53,13 +72,11 @@ Never:
 - Change architecture without approval.
 - Introduce unnecessary libraries.
 - Ignore official documentation.
-- Guess API behaviour.
-
-Whenever uncertainty exists:
-
-Prefer official documentation over memory.
+- Guess API behavior.
+- Invent APIs, request fields, response fields, or database schema.
 
 ---
+
 
 # Prompt 1
 
@@ -194,7 +211,7 @@ Responsibilities
 - Security
 - Performance
 
-Think five releases ahead.
+Think about future scalability without overengineering the current MVP.
 
 Avoid overengineering.
 
@@ -335,11 +352,13 @@ Every feature should update documentation when necessary.
 
 Each AI session should:
 
-1. Choose exactly one primary role.
-2. Read AI_PROJECT_CONTEXT.md.
-3. Review CURRENT_STATUS.md.
-4. Produce focused output.
-5. Avoid responsibilities belonging to another role.
+1. Read 00_AI_ENGINEERING_HANDBOOK.md first.
+2. Choose exactly one primary role.
+3. Follow the required document selection defined by the Engineering Handbook.
+4. Review the existing implementation before making changes.
+5. Produce focused output.
+6. Avoid responsibilities belonging to another role.
+7. Perform a self-review before completion.
 
 ---
 

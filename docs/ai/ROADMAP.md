@@ -25,9 +25,33 @@ It describes:
 - Success criteria
 - Risks
 
-This document is updated whenever priorities change.
+This document is updated whenever project priorities, milestones, dependencies, or delivery plans change.
+
+Changes should remain consistent with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- DECISIONS.md
+- CURRENT_STATUS.md
+- MASTER_CHECKLIST.md
 
 ---
+# Document Ownership
+
+This document defines the development roadmap for the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- MASTER_CHECKLIST.md (feature completion)
+- CURRENT_STATUS.md (current implementation status)
+- DECISIONS.md (architectural decisions)
+
+This document defines development direction, milestones, dependencies, and priorities.
+
+Detailed implementation standards belong in the relevant engineering guideline documents.
+
+---
+
 
 # Project Vision
 
@@ -44,37 +68,19 @@ Deliver a production-ready MVP that allows users to:
 
 # Development Philosophy
 
-We follow:
+Development follows the engineering workflow defined in:
 
-Build
+00_AI_ENGINEERING_HANDBOOK.md
 
-↓
+For roadmap planning, each phase should:
 
-Test
+- Build the required MVP capability.
+- Validate the implementation.
+- Review the result.
+- Address necessary issues.
+- Move to the next milestone.
 
-↓
-
-Review
-
-↓
-
-Refactor
-
-↓
-
-Release
-
-Never:
-
-Build
-
-↓
-
-Forget
-
-↓
-
-Debug everything later
+Avoid postponing all testing and review until the end of development.
 
 ---
 
@@ -518,6 +524,17 @@ Scoreboard
 Version 1.0.0
 
 Production MVP
+
+---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- MASTER_CHECKLIST.md
+- CURRENT_STATUS.md
+- DECISIONS.md
+- PROJECT_OVERVIEW.md
 
 ---
 

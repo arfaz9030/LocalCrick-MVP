@@ -21,7 +21,22 @@ Goals
 - AI-friendly workflow
 
 ---
+# Document Ownership
 
+This document defines Git workflow and version-control practices for the CrickHero project.
+
+It should be used together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md (engineering governance)
+- CODING_STANDARDS.md (coding standards)
+- DECISIONS.md (architectural decisions)
+- MASTER_CHECKLIST.md (feature completion)
+
+This document defines Git-specific practices only.
+
+Engineering governance belongs in the Engineering Handbook.
+
+---
 # Workflow Philosophy
 
 For the MVP:
@@ -386,36 +401,17 @@ dist/
 
 # AI Development Workflow
 
-Requirement
+AI-assisted development must follow the engineering workflow defined in:
 
-↓
+00_AI_ENGINEERING_HANDBOOK.md
 
-Architecture Decision
+After implementation:
 
-↓
-
-Implementation
-
-↓
-
-Commit
-
-↓
-
-Review
-
-↓
-
-Merge
-
-↓
-
-Test
-
-↓
-
-Release
-
+- Follow the Git branching strategy defined in this document.
+- Create a focused commit.
+- Complete the required review.
+- Merge according to the project's merge rules.
+- Follow the release process when applicable.
 ---
 
 # Release Checklist
@@ -479,6 +475,17 @@ Recommended practices
 - Conventional Commits
 - Semantic Versioning
 - Git best practices
+
+---
+# Related Documents
+
+Use this document together with:
+
+- 00_AI_ENGINEERING_HANDBOOK.md
+- CODING_STANDARDS.md
+- DECISIONS.md
+- MASTER_CHECKLIST.md
+- CURRENT_STATUS.md
 
 ---
 
