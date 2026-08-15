@@ -510,7 +510,7 @@ Before merging, verify:
 
 ☐ Matches architecture decisions
 
-☐ Minimum safe change implemented
+    ☐ Minimum safe change implemented
 
 ---
 

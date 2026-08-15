@@ -20,3 +20,19 @@ export async function getToken() {
 export async function removeToken() {
   await SecureStore.deleteItemAsync(TOKEN_KEY);
 }
+
+type UnauthorizedHandler = () => void;
+
+let unauthorizedHandler: UnauthorizedHandler | null = null;
+
+export function registerUnauthorizedHandler(
+  handler: UnauthorizedHandler
+) {
+  unauthorizedHandler = handler;
+}
+
+export async function handleUnauthorized() {
+  await removeToken();
+
+  unauthorizedHandler?.();
+}

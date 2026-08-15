@@ -1,5 +1,6 @@
+import { getToken, registerUnauthorizedHandler, removeToken } from '@/src/auth/tokenService';
 import { Stack, useRouter, useSegments } from 'expo-router';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { PaperProvider } from 'react-native-paper';
 
 interface AuthContextType {
@@ -20,10 +21,33 @@ export function useAuth() {
 
 export default function RootLayout() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isRestoringSession, setIsRestoringSession] = useState(true);
 
   const router = useRouter();
   const segments = useSegments();
+
   useEffect(() => {
+    const restoreSession = async () => {
+      try {
+        const token = await getToken();
+
+        setIsAuthenticated(Boolean(token));
+      } catch (error) {
+        console.error('Failed to restore authentication session:', error);
+        setIsAuthenticated(false);
+      } finally {
+        setIsRestoringSession(false);
+      }
+    };
+
+    restoreSession();
+  }, []);
+
+  useEffect(() => {
+    if (isRestoringSession) {
+      return;
+    }
+
     const inTabsGroup = segments[0] === '(tabs)';
     const isOnboarding = segments[0] === 'onboarding';
 
@@ -34,11 +58,21 @@ export default function RootLayout() {
     if (isAuthenticated && isOnboarding) {
       router.replace('/(tabs)');
     }
-  }, [isAuthenticated, segments, router]);
+  }, [isAuthenticated, isRestoringSession, segments, router]);
 
-  const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  const login = () => {
+    setIsAuthenticated(true);
+  };
 
+  const logout = async () => {
+    await removeToken();
+    setIsAuthenticated(false);
+  };
+  useEffect(() => {
+    registerUnauthorizedHandler(() => {
+      setIsAuthenticated(false);
+    });
+  }, []);
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       <PaperProvider>
