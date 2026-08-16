@@ -85,7 +85,8 @@ export const authApi = {
         throw new Error('OTP verification failed');
       }
       const data = await response.json();
-      console.log("JWT Received:", data.token);
+      // console.log("JWT Received:", data.token);
+      console.log('JWT Received:', Boolean(data.token));
       // Save JWT securely
       await saveToken(data.token);
 
@@ -95,7 +96,8 @@ export const authApi = {
       // }
       const storedToken = await getToken();
 
-      console.log("Stored Token:", storedToken);
+      // console.log("Stored Token:", storedToken);
+      console.log('Stored Token:', Boolean(storedToken));
 
       return data;
     }

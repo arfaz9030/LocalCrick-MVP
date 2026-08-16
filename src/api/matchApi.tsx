@@ -1,4 +1,7 @@
-import { getToken } from "../auth/tokenService";
+import {
+  getToken,
+  handleUnauthorized
+} from "../auth/tokenService";
 
 export type Match = {
   matchId: string;
@@ -13,12 +16,16 @@ export type Match = {
 const BASE_URL = 'http://192.168.29.120:2020';
 
 async function parseJsonResponse<T>(response: Response): Promise<T> {
+  if (response.status === 401) {
+    await handleUnauthorized();
+    throw new Error('Authentication expired');
+  }
+
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
   }
   return response.json();
 }
-
 export async function fetchMatches(): Promise<Match[]> {
   // const response = await fetch(`${BASE_URL}/api/matches`);
   const response = await fetch(`${BASE_URL}/api/matches`, {
@@ -90,7 +97,8 @@ export type TeamResponse = {
 
 export async function getTeams(): Promise<TeamResponse[]> {
   const token = await getToken();
-  console.log("Token Before API:", token);
+  // console.log("Token Before API:", token);
+  console.log('Authentication token available:', Boolean(token));
   // const res = await fetch(`${BASE_URL}/api/teams`);
   const res = await fetch(`${BASE_URL}/api/teams`, {
     method: "GET",
@@ -100,16 +108,21 @@ export async function getTeams(): Promise<TeamResponse[]> {
     },
   });
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch teams');
+  if (res.status === 401) {
+    await handleUnauthorized();
+    throw new Error('Authentication expired');
   }
 
+  if (!res.ok) {
+    throw new Error(`Request failed: ${res.status}`);
+  }
   return res.json();
 }
 async function getAuthHeaders() {
   const token = await getToken();
+  console.log('Token:', Boolean(token));
 
-  console.log("Stored Token:", token);
+  // console.log("Stored Token:", token);
 
   return {
     "Content-Type": "application/json",
