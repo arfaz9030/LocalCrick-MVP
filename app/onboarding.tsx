@@ -9,7 +9,6 @@ import { authApi } from '../src/auth/authAPI';
 import { useAuth } from './_layout';
 
 const { width, height } = Dimensions.get('window');
-
 type OnboardingStep = 'PROMO' | 'TRUECALLER' | 'LOGIN_OPTIONS' | 'OTP_INPUT' | 'WAITING' | 'SURVEY';
 
 export default function OnboardingScreen() {
@@ -17,6 +16,7 @@ export default function OnboardingScreen() {
   const { login } = useAuth();
   const [step, setStep] = useState<OnboardingStep>('PROMO');
   const [phoneNumber, setPhoneNumber] = useState('7680922101');
+  const [otpError, setOtpError] = useState('');
   const [otpCode, setOtpCode] = useState('');
   const handleTruecallerVerify = async () => {
     setStep('WAITING');
@@ -63,21 +63,29 @@ export default function OnboardingScreen() {
   }
 
   const handleOtpVerify = async () => {
+    // Show the existing loading screen while OTP verification is running.
     setStep('WAITING');
     try {
+      // Send the entered 5-digit OTP to the existing backend API.
       const response = await authApi.verifyOTP(phoneNumber, otpCode);
 
+      // Log only the response during development.
+      // Do NOT log the JWT token.
       console.log("Verify OTP Response:", response);
-      // Success only if backend returned a valid JWT
+
+      // A successful response must contain the JWT and user ID.
       if (response.token && response.userId) {
+        // Continue to the existing survey flow.
         setTimeout(() => {
           setStep("SURVEY");
         }, 500);
       } else {
-        console.log("Invalid OTP");
+        // The API responded successfully but did not provide
+        // the authentication data required by the frontend.
+        setOtpError('Invalid OTP. Please check the code and try again.');
 
-        Alert.alert("Invalid OTP", "Please enter a valid OTP.");
 
+        // Keep the user on the OTP screen so they can try again.
         setStep("OTP_INPUT");
       }
 
@@ -254,7 +262,7 @@ export default function OnboardingScreen() {
             onPress={handleOtpVerify}
             style={styles.otpSubmitBtn}
             buttonColor="#1d978e"
-            disabled={otpCode.length < 4}
+            disabled={otpCode.length < 5}
             id="otp-verify-btn"
           >
             Verify & Proceed
