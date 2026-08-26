@@ -2,7 +2,7 @@
 **Version:** 1.0  
 **Status:** Active Development  
 **Last Updated:** August 2026  
-**Overall Progress:** ~25% (Estimated)
+**Overall Progress:** ~35% (Estimated)
 
 ---
 # Document Ownership
@@ -50,7 +50,11 @@ This document does not define:
 | Overall Project | 🟢 On Track |
 | Frontend | 🟢 Active |
 | Backend | 🟢 Active |
-| Authentication | 🟢 Completed |
+| Authentication | ✅ Completed |
+| Teams Frontend | 🟡 Substantially In Progress |
+| Teams Backend | 🟡 Partially Active |
+| Players Frontend | 🟡 Substantially In Progress |
+| Players Backend | 🟡 Partially Active |
 | Cricket Features | ⚪ Not Started |
 | Testing | ⚪ Not Started |
 | Production Readiness | ⚪ Not Started |
@@ -60,22 +64,27 @@ This document does not define:
 
 ### Sprint Goal
 
-Complete Authentication Module and establish a stable project foundation.
+Complete Teams + Players Module (frontend and backend integration).
 
-### Completed
+### Completed This Sprint
 
-- [x] Verify OTP Flow
-- [x] JWT Storage
-- [x] Login Persistence
-- [x] Auto Login
-- [x] Session Restore
-- [x] Token Expiry Handling
-- [x] Authentication Guard
+- [x] Teams screen UI (three-tab layout: Your Teams, Opponents, Add)
+- [x] Team list with search and empty state
+- [x] TeamCard component (expandable, avatar initials, player list preview)
+- [x] Create Team form (team name, city, captain name, captain number, checkboxes)
+- [x] Team creation API integration (`POST /api/teams`)
+- [x] Teams list API integration (`GET /api/teams`)
+- [x] InvitePlayerModal UI (player name, mobile, jersey number, role chip selection)
+- [x] Add Player API integration (`POST /api/teams/{teamId}/players`)
+- [x] API failure now correctly shows error; no longer fabricates local player on failure
+- [x] Authentication Bearer token used in all Team and Player API calls
 
 ### In Progress
 
-- [ ] OTP UI refinement
-- [ ] Authentication error-handling review
+- [ ] OTP UI refinement (carried forward)
+- [ ] Authentication error-handling review (carried forward)
+- [ ] Edit Team UI and API
+- [ ] Delete Team UI and API
 
 ---
 
@@ -150,28 +159,61 @@ Do not use this document to record architectural decisions or implementation sta
 
 # Teams Module
 
-Status: ⏳ Pending
+Status: 🟡 In Progress
 
-Features
+## Frontend
 
-- ☐ Create Team
-- ☐ Edit Team
-- ☐ Delete Team
-- ☐ Team List
-- ☐ Team Details
+| Feature | Status |
+|----------|---------|
+| Teams Screen (tab layout) | ✅ Completed |
+| Team List with Search | ✅ Completed |
+| TeamCard Component (expandable) | ✅ Completed |
+| Empty State (no teams) | ✅ Completed |
+| Opponents Tab Placeholder | ✅ Completed (UI placeholder only) |
+| Create Team Form | ✅ Completed |
+| Create Team API Integration | ✅ Working |
+| Get Teams API Integration | ✅ Working |
+| Edit Team UI | ☐ Pending |
+| Delete Team UI | ☐ Pending |
+| Team Link / Native Share Sheet | ☐ Pending |
+| Add from Contacts | ☐ Pending |
+| QR Code Flow | ☐ Pending |
+
+## Backend
+
+| Feature | Status |
+|----------|---------|
+| POST /api/teams | ✅ Working |
+| GET /api/teams | ✅ Working |
+| GET /api/teams/{id} | ☐ Not yet integrated from frontend |
+| PUT /api/teams/{id} | ☐ Pending |
+| DELETE /api/teams/{id} | ☐ Pending |
 
 ---
 
 # Players Module
 
-Status: ⏳ Pending
+Status: 🟡 In Progress
 
-Features
+## Frontend
 
-- ☐ Add Player
-- ☐ Edit Player
-- ☐ Remove Player
-- ☐ Player Statistics
+| Feature | Status |
+|----------|---------|
+| InvitePlayerModal (Add Player form) | ✅ Completed |
+| Add Player API Integration | ✅ Working |
+| Player list display inside TeamCard | ✅ Completed |
+| Edit Player UI | ☐ Pending |
+| Delete/Remove Player UI | ☐ Pending |
+| Player Statistics | ☐ Pending |
+
+## Backend
+
+| Feature | Status |
+|----------|---------|
+| POST /api/teams/{teamId}/players | ✅ Working |
+| GET /api/players | ☐ Pending |
+| PUT /api/players/{id} | ☐ Pending |
+| DELETE /api/players/{id} | ☐ Pending |
 
 ---
 
@@ -235,10 +277,17 @@ Features
 
 ## Authentication
 
-## Authentication
-
 - OTP 5-digit input implemented.
-- OTP entered-digit color need to change.
+- OTP entered-digit color needs to change.
+
+---
+
+## Teams / Players
+
+- `createTeam()` in `TeamsScreen.tsx` still has a local-state fallback when the backend API fails (violates API persistence-safety rule). This must be removed — tracked as technical debt (High priority).
+- `createTeam()` currently only sends `name` and `captainName` to backend (city, captainNumber not yet sent — limited by current backend contract).
+- `getTeams()` result mapping defaults `city` to `'Hyderabad (Telangana)'` if not returned by backend.
+- Debug `console.log` statements still present in `TeamsScreen.tsx` and `matchApi.tsx` — to be removed before production.
 
 ---
 
@@ -283,28 +332,37 @@ Features
 - Expired JWT session redirects to onboarding.
 - Protected API requests use Bearer authentication.
 - Logout clears authentication state and stored JWT.
+- Teams screen implemented with three-tab layout, search, and TeamCard component.
+- Create Team form implemented and integrated with backend (`POST /api/teams`).
+- Get Teams integrated with backend (`GET /api/teams`).
+- InvitePlayerModal implemented and integrated with backend (`POST /api/teams/{teamId}/players`).
+- Add Player API failure now correctly reports an error instead of fabricating local state.
 
 ---
 
 # Next Milestone
 
-## Complete Authentication
+## Complete Teams + Players Module
 
 Remaining work:
 
-1. Final Authentication Testing
-2. OTP UI Refinement
-3. Error Handling Review
+1. Remove `createTeam` local-state fallback (technical debt / API persistence safety)
+2. Edit Team UI + backend integration
+3. Delete Team UI + backend integration
+4. Edit Player UI + backend integration
+5. Delete Player UI + backend integration
+6. Team Link / native share sheet (invitation flow)
+7. Remove debug console.log statements before production
 
 ---
 
 # Risks
 
-Low
+Low–Medium
 
 Current risks:
 
-- Authentication polish remaining.
+- `createTeam` local fallback violates API persistence safety rule — must be resolved before next milestone sign-off (Medium priority).
 - Live scoring not started.
 - Match logic not implemented.
 
@@ -316,6 +374,8 @@ No architectural blockers identified.
 
 Current
 
+- `createTeam` local-state fallback on API error in `TeamsScreen.tsx` (violates API persistence safety — High priority).
+- Debug console.log statements remaining in TeamsScreen.tsx and matchApi.tsx.
 - Duplicate authentication flow.
 - OTP UI refinement.
 - Centralized constants.
@@ -323,9 +383,10 @@ Current
 
 Priority
 
-Low
+- High: createTeam fallback removal
+- Low: remaining items
 
-Complete after MVP.
+Complete after MVP (low priority items).
 
 ---
 
@@ -391,13 +452,21 @@ Authentication
 
 ██████████ 100%
 
-Teams
+Teams (Frontend)
 
-░░░░░░░░░░ 0%
+███████░░░ 65%
 
-Players
+Teams (Backend)
 
-░░░░░░░░░░ 0%
+████░░░░░░ 40%
+
+Players (Frontend)
+
+████░░░░░░ 40%
+
+Players (Backend)
+
+██░░░░░░░░ 20%
 
 Matches
 
@@ -417,21 +486,10 @@ Summary
 
 Overall MVP
 
-██░░░░░░░░ 25%
+███░░░░░░░ 35%
 
 ---
 
-# Related Documents
-
-Use this document together with:
-
-- 00_AI_ENGINEERING_HANDBOOK.md
-- MASTER_CHECKLIST.md
-- ROADMAP.md
-- DECISIONS.md
-- API_CONTRACT.md
-
----
 # Related Documents
 
 Use this document together with:

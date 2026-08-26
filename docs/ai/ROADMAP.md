@@ -160,7 +160,7 @@ Success Criteria
 
 Status
 
-🟡 In Progress
+✅ Completed
 
 Deliverables
 
@@ -186,14 +186,16 @@ User remains logged in after restarting the app.
 
 Status
 
-⚪ Planned
+🟡 In Progress
 
 Deliverables
 
-- Create Team
-- Edit Team
-- Delete Team
-- Team List
+- Create Team ✅
+- Team List ✅
+- Edit Team ⬜ Pending
+- Delete Team ⬜ Pending
+- Team Link / Share Sheet ⬜ Pending
+- QR Code / Contacts Invite ⬜ Pending
 
 Dependencies
 
@@ -209,14 +211,14 @@ User can manage teams.
 
 Status
 
-⚪ Planned
+🟡 In Progress
 
 Deliverables
 
-- Add Player
-- Edit Player
-- Delete Player
-- Player List
+- Add Player ✅
+- Edit Player ⬜ Pending
+- Delete Player ⬜ Pending
+- Player List (inside TeamCard) ✅
 
 Dependencies
 

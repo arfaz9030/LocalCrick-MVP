@@ -87,6 +87,36 @@ export type Player = {
   bowlingStyle?: string;
 };
 
+export interface AddPlayerPayload {
+  name: string;
+  teamId: number;
+  mobileNumber?: string;
+  jerseyNumber?: number;
+  role?: string;
+  battingStyle?: string;
+  bowlingStyle?: string;
+}
+
+export async function addPlayer(
+  teamId: number,
+  player: AddPlayerPayload
+) {
+  const token = await getToken();
+  const response = await fetch(
+    `${BASE_URL}/api/teams/${teamId}/players`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(player),
+    }
+  );
+
+  return parseJsonResponse(response);
+}
+
 export type TeamResponse = {
   id: number;
   name: string;
@@ -117,6 +147,31 @@ export async function getTeams(): Promise<TeamResponse[]> {
     throw new Error(`Request failed: ${res.status}`);
   }
   return res.json();
+}
+export interface CreateTeamPayload {
+  name: string;
+  captainName: string;
+  city?: string;
+  captainNumber?: string;
+  allowCaptainAddPlayers?: boolean;
+  addSelf?: boolean;
+  logoUrl?: string;
+}
+
+export async function createTeam(payload: CreateTeamPayload): Promise<TeamResponse> {
+  // Only send fields confirmed by the backend Team model (name, captainName)
+  const requestBody: { name: string; captainName: string } = {
+    name: payload.name,
+    captainName: payload.captainName,
+  };
+
+  const res = await fetch(`${BASE_URL}/api/teams`, {
+    method: 'POST',
+    headers: await getAuthHeaders(),
+    body: JSON.stringify(requestBody),
+  });
+
+  return parseJsonResponse<TeamResponse>(res);
 }
 async function getAuthHeaders() {
   const token = await getToken();

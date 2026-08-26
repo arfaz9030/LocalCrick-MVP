@@ -6,7 +6,7 @@
 
 **Purpose:** Daily Execution Dashboard
 
-Last Updated: July 2026
+Last Updated: August 2026
 
 ---
 
@@ -73,7 +73,7 @@ Project Completion
 
 Estimated Progress
 
-25%
+35%
 
 ---
 
@@ -123,13 +123,45 @@ Status
 
 - [x] Frontend → Backend Communication
 - [x] Request OTP Working
-- [ ] Verify OTP Working
-- [ ] JWT Generation
-- [ ] JWT Storage
-- [ ] Auto Login
-- [ ] Session Restore
-- [ ] Authentication Guard
+- [x] Verify OTP Working
+- [x] JWT Generation
+- [x] JWT Storage
+- [x] Auto Login
+- [x] Session Restore
+- [x] Authentication Guard
 - [ ] Refresh Token
+
+Status
+
+✅ Complete (except Refresh Token)
+
+---
+
+# Phase 3 — Teams
+
+## Frontend
+
+- [x] Teams Screen (three-tab layout: Your Teams, Opponents, Add)
+- [x] Team List with Search
+- [x] TeamCard Component (expandable, avatar initials, player list)
+- [x] Empty State (no teams)
+- [x] Opponents Tab Placeholder UI
+- [x] Create Team Form (name, city, captain name, captain number, checkboxes)
+- [x] Create Team API Integration (POST /api/teams)
+- [x] Get Teams API Integration (GET /api/teams)
+- [ ] Edit Team UI
+- [ ] Delete Team UI
+- [ ] Team Link / Native Share Sheet
+- [ ] Add from Contacts
+- [ ] QR Code Flow
+
+## Backend
+
+- [x] POST /api/teams
+- [x] GET /api/teams
+- [ ] GET /api/teams/{id} (not yet integrated from frontend)
+- [ ] PUT /api/teams/{id}
+- [ ] DELETE /api/teams/{id}
 
 Status
 
@@ -137,30 +169,28 @@ Status
 
 ---
 
-# Phase 3 — Teams
-
-- [ ] Create Team
-- [ ] Team List
-- [ ] Edit Team
-- [ ] Delete Team
-- [ ] Team Validation
-
-Status
-
-⬜ Not Started
-
----
-
 # Phase 4 — Players
 
-- [ ] Add Player
-- [ ] Edit Player
-- [ ] Delete Player
+## Frontend
+
+- [x] InvitePlayerModal (Add Player form: name, mobile, jersey, role)
+- [x] Add Player API Integration (POST /api/teams/{teamId}/players)
+- [x] Player list display inside TeamCard
+- [x] API failure correctly shows error (no longer fabricates local state)
+- [ ] Edit Player UI
+- [ ] Delete / Remove Player UI
 - [ ] Player Profile
+
+## Backend
+
+- [x] POST /api/teams/{teamId}/players
+- [ ] GET /api/players
+- [ ] PUT /api/players/{id}
+- [ ] DELETE /api/players/{id}
 
 Status
 
-⬜ Not Started
+🟡 In Progress
 
 ---
 
@@ -275,15 +305,17 @@ Remaining
 
 Sprint Goal
 
-Complete Authentication
+Complete Teams + Players Module
 
 Tasks
 
-- [ ] Verify OTP
-- [ ] JWT Storage
-- [ ] Login Persistence
-- [ ] Auto Login
-- [ ] Session Restore
+- [ ] Remove createTeam local-state fallback (API persistence safety fix)
+- [ ] Edit Team UI + backend integration
+- [ ] Delete Team UI + backend integration
+- [ ] Edit Player UI + backend integration
+- [ ] Delete Player UI + backend integration
+- [ ] Team Link / native share sheet
+- [ ] Remove debug console.log statements
 
 ---
 
@@ -313,6 +345,8 @@ None
 
 # Technical Debt
 
+- [ ] Remove createTeam local-state fallback on API failure (High priority — violates API persistence safety)
+- [ ] Remove debug console.log statements from production code
 - [ ] Centralize design tokens
 - [ ] Remove duplicate authentication logic
 - [ ] Standardize API responses
@@ -330,6 +364,7 @@ Medium
 
 - [ ] OTP color
 - [ ] OTP length consistency
+- [ ] createTeam local fallback — API persistence safety violation
 
 Low
 
