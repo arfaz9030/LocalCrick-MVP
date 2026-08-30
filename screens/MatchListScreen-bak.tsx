@@ -205,23 +205,18 @@ import React, { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
-  Platform,
   Pressable,
-  StatusBar,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { Icon } from 'react-native-paper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppDrawer } from '../components/AppDrawer';
 import { fetchMatches, Match } from '../src/api/matchApi';
 
 export default function MatchListScreen() {
-  const insets = useSafeAreaInsets();
-  const statusBarHeight = Platform.OS === 'android' ? (StatusBar.currentHeight || 0) : 0;
-  const topInset = Math.max(insets.top, statusBarHeight);
   const router = useRouter();
 
   const [matches, setMatches] = useState<Match[]>([]);
@@ -286,26 +281,26 @@ export default function MatchListScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.container, styles.centerContent, { paddingTop: insets.top }]}>
+      <SafeAreaView style={[styles.container, styles.centerContent]}>
         <ActivityIndicator size="large" color="#2563EB" />
         <Text style={styles.loadingText}>Loading matches...</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
   if (error) {
     return (
-      <View style={[styles.container, styles.centerContent, { paddingTop: insets.top }]}>
+      <SafeAreaView style={[styles.container, styles.centerContent]}>
         <Text style={styles.errorText}>{error}</Text>
         <Pressable style={styles.retryButton} onPress={loadMatches}>
           <Text style={styles.retryButtonText}>Retry</Text>
         </Pressable>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={[styles.container, { paddingTop: topInset + 10 }]}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerBlock}>
         <View style={styles.headerTopRow}>
           <TouchableOpacity
@@ -348,7 +343,7 @@ export default function MatchListScreen() {
         onClose={() => setDrawerVisible(false)}
         activeItem="matches"
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

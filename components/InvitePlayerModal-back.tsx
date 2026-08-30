@@ -1,7 +1,5 @@
-import * as Contacts from 'expo-contacts';
 import React, { useState } from 'react';
 import {
-  Alert,
   Modal,
   Pressable,
   ScrollView,
@@ -52,49 +50,10 @@ export const InvitePlayerModal: React.FC<InvitePlayerModalProps> = ({
     try {
       await Share.share({
         title: `Invite to ${teamName}`,
-        message: `Join our cricket team "${teamName}" on CrickHero! (Team invitation demo share)`,
+        message: `Join our team "${teamName}" on CrickHero!`,
       });
     } catch (err: any) {
       console.error('Error sharing team link:', err);
-    }
-  };
-
-  const handlePickContact = async () => {
-    try {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert(
-          'Permission Required',
-          'Access to contacts was not granted. Please allow contact permissions in device settings or enter player details manually.'
-        );
-        return;
-      }
-
-      if (typeof Contacts.presentContactPickerAsync === 'function') {
-        const contact = await Contacts.presentContactPickerAsync();
-        if (contact) {
-          const fullName =
-            contact.name ||
-            [contact.firstName, contact.lastName].filter(Boolean).join(' ') ||
-            '';
-          if (fullName) {
-            setPlayerName(fullName);
-            if (error) setError('');
-          }
-          if (contact.phoneNumbers && contact.phoneNumbers.length > 0) {
-            const rawNum = contact.phoneNumbers[0].number?.replace(/[^0-9]/g, '') || '';
-            const cleanNum = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
-            setMobileNumber(cleanNum);
-          }
-        }
-      } else {
-        Alert.alert('Contacts', 'Native contact picker is not supported on this platform.');
-      }
-    } catch (err: any) {
-      // User cancelled picker or system error
-      if (err?.message && !err.message.toLowerCase().includes('cancel')) {
-        Alert.alert('Contacts Error', 'Could not open device contact picker.');
-      }
     }
   };
 
@@ -162,36 +121,21 @@ export const InvitePlayerModal: React.FC<InvitePlayerModalProps> = ({
           </View>
           <Text style={styles.subTitle}>Adding player to {teamName}</Text>
 
-          {/* Quick Action Buttons Row: Share Team Link & Pick from Contacts */}
-          <View style={styles.quickActionsContainer}>
-            <TouchableOpacity
-              style={styles.shareLinkButton}
-              onPress={handleShareTeamLink}
-              activeOpacity={0.7}
-            >
-              <View style={styles.shareLinkIconWrapper}>
-                <Icon source="share-variant" size={18} color={COLORS.brandTeal} />
-              </View>
-              <View style={styles.shareLinkTextWrapper}>
-                <Text style={styles.shareLinkTitle}>Share Team Link</Text>
-                <Text style={styles.shareLinkSubtitle}>Native share sheet</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.contactsButton}
-              onPress={handlePickContact}
-              activeOpacity={0.7}
-            >
-              <View style={styles.contactsIconWrapper}>
-                <Icon source="contacts" size={18} color="#2563EB" />
-              </View>
-              <View style={styles.shareLinkTextWrapper}>
-                <Text style={styles.shareLinkTitle}>From Contacts</Text>
-                <Text style={styles.shareLinkSubtitle}>Select device contact</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          {/* Team Link Share Button (Native Android / iOS Share Sheet) */}
+          <TouchableOpacity
+            style={styles.shareLinkButton}
+            onPress={handleShareTeamLink}
+            activeOpacity={0.7}
+          >
+            <View style={styles.shareLinkIconWrapper}>
+              <Icon source="share-variant" size={20} color={COLORS.brandTeal} />
+            </View>
+            <View style={styles.shareLinkTextWrapper}>
+              <Text style={styles.shareLinkTitle}>Share Team Link</Text>
+              <Text style={styles.shareLinkSubtitle}>Invite players via device share sheet</Text>
+            </View>
+            <Icon source="chevron-right" size={20} color={COLORS.textDarkSecondary} />
+          </TouchableOpacity>
 
           {/* Divider */}
           <View style={styles.dividerRow}>
@@ -335,61 +279,37 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 12,
   },
-  quickActionsContainer: {
-    flexDirection: 'row',
-    gap: 10,
-    marginBottom: 10,
-  },
   shareLinkButton: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F0FDFA',
     borderWidth: 1,
     borderColor: '#CCFBF1',
     borderRadius: 10,
-    padding: 10,
-  },
-  contactsButton: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#EFF6FF',
-    borderWidth: 1,
-    borderColor: '#DBEAFE',
-    borderRadius: 10,
-    padding: 10,
+    padding: 12,
+    marginBottom: 12,
   },
   shareLinkIconWrapper: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: '#CCFBF1',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 8,
-  },
-  contactsIconWrapper: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#DBEAFE',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 8,
+    marginRight: 12,
   },
   shareLinkTextWrapper: {
     flex: 1,
   },
   shareLinkTitle: {
-    fontSize: 12,
+    fontSize: FONT_SIZE.sm,
     fontWeight: FONT_WEIGHT.bold,
     color: COLORS.textDark,
   },
   shareLinkSubtitle: {
-    fontSize: 10,
+    fontSize: 11,
     color: COLORS.textDarkSecondary,
-    marginTop: 1,
+    marginTop: 2,
   },
   dividerRow: {
     flexDirection: 'row',
