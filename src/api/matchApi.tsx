@@ -13,7 +13,7 @@ export type Match = {
   status: string;
 };
 
-const BASE_URL = 'http://192.168.1.11:2020';
+export const BASE_URL = process.env.EXPO_PUBLIC_API_URL!;
 
 async function parseJsonResponse<T>(response: Response): Promise<T> {
   if (response.status === 401) {
