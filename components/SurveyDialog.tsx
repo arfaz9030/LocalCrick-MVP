@@ -34,7 +34,7 @@ export default function SurveyDialog({ visible, onDismiss, onStartSurvey }: Surv
         <Dialog.Content style={styles.content}>
           <Text style={styles.title}>Help us improve</Text>
           <Text style={styles.desc}>
-            We'd love to understand how CricHeroes is helping your game and where we can improve the experience further.
+            We&apos;d love to understand how CricHeroes is helping your game and where we can improve the experience further.
           </Text>
 
           <Button

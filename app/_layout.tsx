@@ -52,8 +52,11 @@ export default function RootLayout() {
 
     const inTabsGroup = segments[0] === '(tabs)';
     const isOnboarding = segments[0] === 'onboarding';
+    // Root-level routes that also require authentication
+    const isProtectedRootRoute =
+      segments[0] === 'create-match' || segments[0] === 'match';
 
-    if (!isAuthenticated && inTabsGroup) {
+    if (!isAuthenticated && (inTabsGroup || isProtectedRootRoute)) {
       router.replace('/onboarding');
     }
 

@@ -3,9 +3,10 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -13,6 +14,7 @@ import {
   View,
 } from 'react-native';
 import { Icon } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppDrawer } from '../components/AppDrawer';
 import { InvitePlayerModal } from '../components/InvitePlayerModal';
 import { TeamCard, TeamItem } from '../components/TeamCard';
@@ -24,6 +26,10 @@ import { FONT_SIZE, FONT_WEIGHT } from '../src/theme/typography';
 type TabType = 'your_teams' | 'opponents' | 'add';
 
 export const TeamsScreen: React.FC = () => {
+  const insets = useSafeAreaInsets();
+  const statusBarHeight = Platform.OS === 'android' ? (StatusBar.currentHeight || 0) : 0;
+  const topInset = Math.max(insets.top, statusBarHeight);
+
   // Navigation & Tabs
   const [activeTab, setActiveTab] = useState<TabType>('your_teams');
   const [searchQuery, setSearchQuery] = useState('');
@@ -222,9 +228,10 @@ export const TeamsScreen: React.FC = () => {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.brandRed} translucent />
       {/* Red Top Header */}
-      <View style={styles.topHeader}>
+      <View style={[styles.topHeader, { paddingTop: topInset + 10 }]}>
         <View style={styles.headerLeft}>
           {activeTab === 'add' ? (
             <TouchableOpacity
@@ -573,9 +580,7 @@ export const TeamsScreen: React.FC = () => {
       {qrModalTeam ? (
         <TeamQRModal
           visible={qrModalVisible}
-          teamId={qrModalTeam.id}
-          teamName={qrModalTeam.name}
-          captainName={qrModalTeam.captainName}
+          team={qrModalTeam}
           onClose={() => setQrModalVisible(false)}
         />
       ) : null}
@@ -586,12 +591,12 @@ export const TeamsScreen: React.FC = () => {
         onClose={() => setDrawerVisible(false)}
         activeItem="teams"
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
@@ -601,7 +606,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingBottom: 14,
   },
   headerLeft: {
     flexDirection: 'row',
