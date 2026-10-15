@@ -56,7 +56,10 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({
       onRequestClose={onClose}
     >
       <View style={styles.overlay}>
-        {/* Drawer Slide-in Container — LEFT side */}
+        {/* Backdrop press to close */}
+        <Pressable style={styles.backdrop} onPress={onClose} />
+
+        {/* Drawer Slide-in Container */}
         <View
           style={[
             styles.drawerContent,
@@ -123,7 +126,7 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({
                   activeItem === 'teams' ? styles.navItemTextActive : null,
                 ]}
               >
-                Teams &amp; Squads
+                Teams & Squads
               </Text>
             </TouchableOpacity>
 
@@ -188,9 +191,6 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({
             <Text style={styles.versionText}>CrickHero MVP v1.0 • Demo Build</Text>
           </View>
         </View>
-
-        {/* Backdrop press to close — RIGHT side */}
-        <Pressable style={styles.backdrop} onPress={onClose} />
       </View>
     </Modal>
   );
